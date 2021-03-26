@@ -6,7 +6,7 @@ valid_characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", 
 
 def generate_username_valid():
     # username length between [1,30] inclusive
-    length = random.randint(1, 30)
+    length = random.randint(1, len(valid_characters))
 
     generated_username = ""
 
