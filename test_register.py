@@ -6,27 +6,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
+import json
+
 from gen_username_valid import generate_username_valid
 from gen_email_valid import generate_email_valid
 from gen_password_valid import generate_password_valid
 
 # set wait time between testcases
-waitTime = 1.5
+waitTime = 1
+
+# file to store registered accounts
+filename = "registeredAccounts.json"
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
 PATH = "C:\\chromedriver.exe"
 
 driver = webdriver.Chrome(PATH)
-driver.get("http://127.0.0.1:8000/logout/")
-driver.get("http://127.0.0.1:8000/register/")
-
-print("Page Title: " + driver.title)
-
-# field data to be entered
-keys_username = "!Abc"
-keys_email = "abc_@@gmail.com"
-keys_password1 = "password"
-keys_password2 = "password2"
 
 
 def test_register(keys_username, keys_email, keys_password1, keys_password2):
@@ -74,6 +69,7 @@ def test_register(keys_username, keys_email, keys_password1, keys_password2):
         if (driver.title == "Login"):
             isValid = True
             print("TESTCASE: VALID! NEW ACCOUNT REGISTERED	✓")
+            addToDictionary(keys_username, keys_email, keys_password1)
         else:
             isValid = False
             print("TESTCASE: invalid......................")
@@ -86,6 +82,17 @@ def test_register(keys_username, keys_email, keys_password1, keys_password2):
         driver.quit()
 
 
+def addToDictionary(username, email, password):
+    # if len(data) == 0:
+    #     data
+    dictionary = {
+        'username': username,
+        'email': email,
+        'password': password,
+    }
+    temp.append(dictionary)
+
+
 # test_register(generate_username_valid(), generate_email_valid(),
 #               keys_password1, keys_password2)
 # test_register(generate_username_valid(), generate_email_valid(),
@@ -96,6 +103,7 @@ def test_register(keys_username, keys_email, keys_password1, keys_password2):
 #               keys_password1, keys_password2)
 # test_register(generate_username_valid(), generate_email_valid(),
 #               keys_password1, keys_password2)
+
 
 password1 = generate_password_valid()
 password2 = generate_password_valid()
@@ -107,6 +115,10 @@ password7 = generate_password_valid()
 password8 = generate_password_valid()
 password9 = generate_password_valid()
 
+
+with open(filename, "r+") as file:
+    data = json.load(file)
+    temp = data['accounts']
 
 test_register(generate_username_valid(), generate_email_valid(),
               password1, password1)
@@ -127,6 +139,11 @@ test_register(generate_username_valid(), generate_email_valid(),
 test_register(generate_username_valid(), generate_email_valid(),
               password9, password9)
 
+# file.seek(0)
+# json.dump(data, file)
+
+with open(filename, 'w') as f:
+    json.dump(data, f, indent=4)
 
 # test_register(keys_username, generate_email_valid(),
 #               password1, password1)
@@ -148,5 +165,5 @@ test_register(generate_username_valid(), generate_email_valid(),
 #               password9, password9)
 
 
-test_register("c", "c@gmai.com", "ajfkadflkadjflkad", "ajfkadflkadjflkad")
-test_register(keys_username, keys_email, keys_password1, keys_password2)
+# test_register("c", "c@gmai.com", "ajfkadflkadjflkad", "ajfkadflkadjflkad")
+# test_register(keys_username, keys_email, keys_password1, keys_password2)

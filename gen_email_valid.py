@@ -36,13 +36,13 @@ def generate_email_valid():
         newchar = validchar_mailserver[index_char]
         if (len(g_mailserver) > 0) and (g_mailserver[-1] in ["-", "."]) and (newchar in ["-", "."]):
             continue
-        g_mailserver += validchar_mailserver[index_char]
+        g_mailserver += newchar
 
     while g_mailserver[0] in [".", "_"]:
-        g_mailserver[1:]
+        g_mailserver = g_mailserver[1:]
 
     while g_mailserver[-1] in [".", "_"]:
-        g_mailserver[:-1]
+        g_mailserver = g_mailserver[:-1]
 
     # USER
     user_maxlength = 254 - len(g_domain) - len(g_mailserver) - 1
@@ -52,8 +52,16 @@ def generate_email_valid():
 
     for i in range(user_length):
         index_char = random.randint(1, len(validchar_user)) - 1
-        g_user += validchar_user[index_char]
+        newchar = validchar_user[index_char]
+        if (len(g_user) > 0) and (g_user[-1] in ["-", "."]) and (newchar in ["-", "."]):
+            continue
+        g_user += newchar
 
+    while g_mailserver[0] in [".", "_"]:
+        g_mailserver = g_mailserver[1:]
+
+    while g_mailserver[-1] in [".", "_"]:
+        g_mailserver = g_mailserver[:-1]
     # ASSEMBLE EMAIL
     g_email = g_user + "@" + g_mailserver + "." + g_domain
 
