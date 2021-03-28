@@ -19,22 +19,3 @@ def generate_password_valid():
     print(generated_password)
     print()
     return generated_password
-
-
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# generate_password_valid()
-# print("done")

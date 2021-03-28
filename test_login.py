@@ -12,7 +12,9 @@ import json
 waitTime = 1
 
 # file to retrieve registered accounts
-filename = "registeredAccounts.json"
+# filename = "registeredAccounts.json"
+filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
 PATH = "C:\\chromedriver.exe"
@@ -60,19 +62,22 @@ def test_register(keys_username, keys_password):
         driver.quit()
 
 
-# Opening JSON file
-f = open(filename)
+# # Opening JSON file
+# f = open(filename)
 
-# returns JSON object as
-# a dictionary
-data = json.load(f)
+# # returns JSON object as
+# # a dictionary
+# data = json.load(f)
 
-# Iterating through the json
-# list
-for i in data['accounts']:
-    username = i['username']
-    password = i['password']
-    test_register(username, password)
+# # Iterating through the json
+# # list
+# for i in data['accounts']:
+#     username = i['username']
+#     password = i['password']
+#     test_register(username, password)
 
-# Closing file
-f.close()
+# # Closing file
+# f.close()
+username = "AY@ZrgQ_jaSQUGLf9UFaYkLur1rjZh6V9KqvzYHFbvVevH25@BEpjTTWb1zaHSmFM6Scq3swFI4J97RG+buRZGdq.r-QQDnh.1FE_XWiwXlFSo1HR@.zarK6eiU1k3dDYXdO-vxV15Cl4ORu_8yq1ZUZasi.Bj@oHVeuzmOXFMAOORTxg5RvH-QFgcVoQjaQDocBJlbBcxZXlNe297RbgSe9VXyIkj1nVFdanUwgp@LAp3P.8BTvpxtSaddYrVKa"
+password = "P5P;p;JDT>-D0\DYG0'p" + '"'+"`cV~nEv=z*f)*8wt"
+test_register(username, password)

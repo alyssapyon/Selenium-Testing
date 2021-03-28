@@ -11,12 +11,15 @@ import json
 from gen_username_valid import generate_username_valid
 from gen_email_valid import generate_email_valid
 from gen_password_valid import generate_password_valid
+from gen_username_INvalid import *
 
 # set wait time between testcases
 waitTime = 1
 
 # file to store registered accounts
-filename = "registeredAccounts.json"
+# filename = "registeredAccounts.json"
+filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
 PATH = "C:\\chromedriver.exe"
@@ -104,6 +107,8 @@ def addToDictionary(username, email, password):
 # test_register(generate_username_valid(), generate_email_valid(),
 #               keys_password1, keys_password2)
 
+# dir_path = os.path.dirname(os.path.realpath(__file__))
+# print(dir_path)
 
 password1 = generate_password_valid()
 password2 = generate_password_valid()
@@ -120,23 +125,28 @@ with open(filename, "r+") as file:
     data = json.load(file)
     temp = data['accounts']
 
-test_register(generate_username_valid(), generate_email_valid(),
-              password1, password1)
-test_register(generate_username_valid(), generate_email_valid(),
-              password2, password2)
-test_register(generate_username_valid(), generate_email_valid(),
-              password3, password3)
-test_register(generate_username_valid(), generate_email_valid(),
-              password4, password4)
-test_register(generate_username_valid(), generate_email_valid(),
-              password5, password5)
-test_register(generate_username_valid(), generate_email_valid(),
-              password6, password6)
-test_register(generate_username_valid(), generate_email_valid(),
+# username:
+# generate_username_valid()
+# generate_username_INvalid_taken()
+# generate_username_INvalid_chars()
+
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password1, password1)
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password2, password2)
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password3, password3)
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password4, password4)
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password5, password5)
+# test_register(generate_username_valid(), generate_email_valid(),
+#               password6, password6)
+test_register(generate_username_INvalid_taken(), generate_email_valid(),
               password7, password7)
-test_register(generate_username_valid(), generate_email_valid(),
+test_register(generate_username_INvalid_taken(), generate_email_valid(),
               password8, password8)
-test_register(generate_username_valid(), generate_email_valid(),
+test_register(generate_username_INvalid_taken(), generate_email_valid(),
               password9, password9)
 
 # file.seek(0)

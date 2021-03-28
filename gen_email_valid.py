@@ -38,10 +38,10 @@ def generate_email_valid():
             continue
         g_mailserver += newchar
 
-    while g_mailserver[0] in [".", "_"]:
+    while g_mailserver[0] in [".", "_", "-"]:
         g_mailserver = g_mailserver[1:]
 
-    while g_mailserver[-1] in [".", "_"]:
+    while g_mailserver[-1] in [".", "_", "-"]:
         g_mailserver = g_mailserver[:-1]
 
     # USER
@@ -57,27 +57,14 @@ def generate_email_valid():
             continue
         g_user += newchar
 
-    while g_mailserver[0] in [".", "_"]:
-        g_mailserver = g_mailserver[1:]
+    while g_user[0] in [".", "_"]:
+        g_user = g_user[1:]
 
-    while g_mailserver[-1] in [".", "_"]:
-        g_mailserver = g_mailserver[:-1]
+    while g_user[-1] in [".", "_"]:
+        g_user = g_user[:-1]
     # ASSEMBLE EMAIL
     g_email = g_user + "@" + g_mailserver + "." + g_domain
 
     # print(g_email)
     # print()
     return g_email
-
-
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# generate_email_valid()
-# print("done")
