@@ -17,8 +17,8 @@ from gen_username_INvalid import *
 waitTime = 1
 
 # file to store registered accounts
-# filename = "registeredAccounts.json"
-filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+filename = "registeredAccounts.json"
+# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
 
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
@@ -27,9 +27,18 @@ PATH = "C:\\chromedriver.exe"
 driver = webdriver.Chrome(PATH)
 
 
-def test_register(keys_username, keys_email, keys_password1, keys_password2):
+def test_register(keys_username, keys_email, keys_password1, same, group):
+    dictionary = {}
+
     driver.get("http://127.0.0.1:8000/logout/")
-    driver.get("http://127.0.0.1:8000/register/")
+
+    if group == "admin":
+        driver.get("http://127.0.0.1:8000/register/admin")
+    elif group == "tenant":
+        driver.get("http://127.0.0.1:8000/register/tenant")
+    else:
+        print("ERROR!")
+        return 0
 
     try:
         # username
@@ -58,7 +67,10 @@ def test_register(keys_username, keys_email, keys_password1, keys_password2):
             EC.presence_of_element_located((By.NAME, "password2"))
         )
         input_password2.clear()
-        input_password2.send_keys(keys_password2)
+        if same == True:
+            input_password2.send_keys(keys_password1)
+        else:
+            input_password2.send_keys(generate_password_valid())
 
         # press enter
         input_password2.send_keys(Keys.RETURN)
@@ -67,113 +79,92 @@ def test_register(keys_username, keys_email, keys_password1, keys_password2):
         print("keys_username: " + keys_username)
         print("keys_email: " + keys_email)
         print("keys_password1: " + keys_password1)
-        print("keys_password2: " + keys_password2)
 
         if (driver.title == "Login"):
             isValid = True
             print("TESTCASE: VALID! NEW ACCOUNT REGISTERED	✓")
-            addToDictionary(keys_username, keys_email, keys_password1)
+            dictionary = returnDictionary(
+                keys_username, keys_email, keys_password1, group)
         else:
             isValid = False
             print("TESTCASE: invalid......................")
         print()
 
         time.sleep(waitTime)
+
+        return dictionary
+
     except:
         print("TEST FAILED TO RUN")
         time.sleep(5)
         driver.quit()
 
 
-def addToDictionary(username, email, password):
-    # if len(data) == 0:
-    #     data
+def returnDictionary(username, email, password, group):
     dictionary = {
         'username': username,
         'email': email,
         'password': password,
+        'group': group,
     }
-    temp.append(dictionary)
+    return dictionary
 
 
-# test_register(generate_username_valid(), generate_email_valid(),
-#               keys_password1, keys_password2)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               keys_password1, keys_password2)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               keys_password1, keys_password2)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               keys_password1, keys_password2)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               keys_password1, keys_password2)
+def run_test_valid_register_admin(times):
+    with open(filename, "r+") as file:
+        data = json.load(file)
 
-# dir_path = os.path.dirname(os.path.realpath(__file__))
-# print(dir_path)
+    for i in range(times):
+        temp = test_register(generate_username_valid(),
+                             generate_email_valid(), generate_password_valid(), True,  "admin")
+        data['accounts'] .append(temp)
 
-password1 = generate_password_valid()
-password2 = generate_password_valid()
-password3 = generate_password_valid()
-password4 = generate_password_valid()
-password5 = generate_password_valid()
-password6 = generate_password_valid()
-password7 = generate_password_valid()
-password8 = generate_password_valid()
-password9 = generate_password_valid()
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)
+
+    file.close()
+    f.close()
 
 
-with open(filename, "r+") as file:
-    data = json.load(file)
-    temp = data['accounts']
+def run_test_valid_register_tenant(times):
+    with open(filename, "r+") as file:
+        data = json.load(file)
 
-# username:
-# generate_username_valid()
-# generate_username_INvalid_taken()
-# generate_username_INvalid_chars()
+    for i in range(times):
+        temp = test_register(generate_username_valid(),
+                             generate_email_valid(), generate_password_valid(), True, "tenant")
+        data['accounts'] .append(temp)
 
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password1, password1)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password2, password2)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password3, password3)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password4, password4)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password5, password5)
-# test_register(generate_username_valid(), generate_email_valid(),
-#               password6, password6)
-test_register(generate_username_INvalid_taken(), generate_email_valid(),
-              password7, password7)
-test_register(generate_username_INvalid_taken(), generate_email_valid(),
-              password8, password8)
-test_register(generate_username_INvalid_taken(), generate_email_valid(),
-              password9, password9)
+    with open(filename, 'w') as f:
+        json.dump(data, f, indent=4)
 
-# file.seek(0)
-# json.dump(data, file)
-
-with open(filename, 'w') as f:
-    json.dump(data, f, indent=4)
-
-# test_register(keys_username, generate_email_valid(),
-#               password1, password1)
-# test_register(keys_username, generate_email_valid(),
-#               password2, password2)
-# test_register(keys_username, generate_email_valid(),
-#               password3, password3)
-# test_register(keys_username, generate_email_valid(),
-#               password4, password4)
-# test_register(keys_username, generate_email_valid(),
-#               password5, password5)
-# test_register(keys_username, generate_email_valid(),
-#               password6, password6)
-# test_register(keys_username, generate_email_valid(),
-#               password7, password7)
-# test_register(keys_username, generate_email_valid(),
-#               password8, password8)
-# test_register(keys_username, generate_email_valid(),
-#               password9, password9)
+    file.close()
+    f.close()
 
 
-# test_register("c", "c@gmai.com", "ajfkadflkadjflkad", "ajfkadflkadjflkad")
-# test_register(keys_username, keys_email, keys_password1, keys_password2)
+def run_test_INvalid_register_admin(times):
+    for i in range(times):
+        temp = test_register(generate_username_INvalid_chars(),
+                             generate_email_valid(), generate_password_valid(), True, "admin")
+
+        temp = test_register(generate_username_INvalid_taken(),
+                             generate_email_valid(), generate_password_valid(), True, "admin")
+
+        temp = test_register(generate_username_valid(),
+                             generate_email_valid(), generate_password_valid(), False, "admin")
+
+
+def run_test_INvalid_register_tenant(times):
+    for i in range(times):
+        temp = test_register(generate_username_INvalid_chars(),
+                             generate_email_valid(), generate_password_valid(), True, "tenant")
+
+        temp = test_register(generate_username_INvalid_taken(),
+                             generate_email_valid(), generate_password_valid(), True, "tenant")
+
+        temp = test_register(generate_username_valid(),
+                             generate_email_valid(), generate_password_valid(), False, "tenant")
+
+
+# run_test_INvalid_register_admin(5)
+# run_test_INvalid_register_tenant(2)
