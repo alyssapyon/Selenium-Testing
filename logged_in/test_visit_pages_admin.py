@@ -18,18 +18,20 @@ driver = webdriver.Chrome(PATH)
 
 class TestSum(unittest.TestCase):
     def setUp(self):
+        # PATH = "C:\\chromedriver.exe"
+        # driver = webdriver.Chrome(PATH)
         driver.get("http://127.0.0.1:8000/logout/")
         # username
         input_username = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "username"))
         )
         input_username.clear()
-        input_username.send_keys("alyssa")
+        input_username.send_keys("admin1")
 
         # password
         input_password = driver.find_element_by_name("password")
         input_password.clear()
-        input_password.send_keys("password")
+        input_password.send_keys("7dE6wPG3BDTumrjgk")
 
         # press enter
         input_password.send_keys(Keys.RETURN)
@@ -65,14 +67,20 @@ class TestSum(unittest.TestCase):
     def test_createNonFBReport_form(self):
         driver.get("http://127.0.0.1:8000/createNonFBReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("non-F&B" in bodyText)
 
     def test_createFBReport_form(self):
         driver.get("http://127.0.0.1:8000/createFBReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("Report - F&B" in bodyText)
 
     def test_createCovidReport_form(self):
         driver.get("http://127.0.0.1:8000/createCovidReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("Covid" in bodyText)
 
     def test_rectify_form(self):
         driver.get("http://127.0.0.1:8000/rectify_form/")
