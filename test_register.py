@@ -13,17 +13,16 @@ from gen_email_valid import generate_email_valid
 from gen_password_valid import generate_password_valid
 from gen_username_INvalid import *
 
+from CONSTANTS import *
+
 # set wait time between testcases
-waitTime = 1
+waitTime = 2
 
 # file to store registered accounts
-filename = "registeredAccounts.json"
-# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
-
+filename = registeredAccounts_filepath
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
-PATH = "C:\\chromedriver.exe"
-
+PATH = chromeDriver_filepath
 driver = webdriver.Chrome(PATH)
 
 
@@ -37,7 +36,7 @@ def test_register(keys_username, keys_email, keys_password1, same, group):
     elif group == "tenant":
         driver.get("http://127.0.0.1:8000/register/tenant")
     else:
-        print("ERROR!")
+        print("ERROR! wrong group name")
         return 0
 
     try:
@@ -80,7 +79,7 @@ def test_register(keys_username, keys_email, keys_password1, same, group):
         print("keys_email: " + keys_email)
         print("keys_password1: " + keys_password1)
 
-        if (driver.title == "Login"):
+        if ("Login" in driver.title):
             isValid = True
             print("TESTCASE: VALID! NEW ACCOUNT REGISTERED	✓")
             dictionary = returnDictionary(
@@ -166,5 +165,7 @@ def run_test_INvalid_register_tenant(times):
                              generate_email_valid(), generate_password_valid(), False, "tenant")
 
 
-# run_test_INvalid_register_admin(5)
-# run_test_INvalid_register_tenant(2)
+# run_test_valid_register_admin(3)
+# run_test_valid_register_tenant(1)
+run_test_INvalid_register_admin(5)
+run_test_INvalid_register_tenant(2)

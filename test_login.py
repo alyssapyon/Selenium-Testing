@@ -9,16 +9,18 @@ from selenium.webdriver.common.keys import Keys
 
 import json
 
+from CONSTANTS import *
+
 # set wait time between testcases
 waitTime = 1
 
-# file to retrieve registered accounts
-filename = "registeredAccounts.json"
-# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+# file to store registered accounts
+# filename = "registeredAccounts.json"
+filename = registeredAccounts_filepath
 
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
-PATH = "C:\\chromedriver.exe"
+PATH = chromeDriver_filepath
 
 driver = webdriver.Chrome(PATH)
 
@@ -69,8 +71,11 @@ def run_test_valid_login(times):
 
     for i in range(times):
         temp = data['accounts']
-        account = random.choice(temp)
-        test_login(account['username'], account['password'])
+        if len(temp) < 1:
+            test_login(admin_username,  admin_password)
+        else:
+            account = random.choice(temp)
+            test_login(account['username'], account['password'])
 
     file.close()
 

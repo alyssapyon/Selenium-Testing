@@ -1,9 +1,12 @@
 import random
 import json
 
+from CONSTANTS import *
+
 # file to store registered accounts
-filename = "registeredAccounts.json"
-# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+# filename = "registeredAccounts.json"
+filename = registeredAccounts_filepath
+
 
 valid_characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
                     "W", "X", "Y", "Z", "_", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "@", ".", "+", "-"]
@@ -11,17 +14,6 @@ valid_characters = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", 
 INvalid_characters = ["!", "#", "$", "%", "&",
                       "(", ")", "{", "}", "[", "]", "|", "*", ",", "<", ">", "=", "/", "\\", ":", ";", "~", "`", "'", '"', "^"]
 # invalid characters -> not only alphanumeric
-# 31 or more characters
-
-
-# def generate_username_INvalid():
-#     choice = random.randint(1, 3)
-#     if choice == 1:
-#         generate_username_INvalid_chars()
-#     elif choice == 2:
-#         generate_username_INvalid_length()
-#     else:
-#         generate_username_INvalid_taken()
 
 
 def generate_username_INvalid_chars():
@@ -44,38 +36,36 @@ def generate_username_INvalid_chars():
 
     return g_username
 
-# seems like it passes the testcase, but the account is not actually registered in the backend
-# def generate_username_INvalid_length():
-#     length = random.randint(256, 300)
-
-#     g_username = ""
-
-#     for i in range(length):
-#         character_index = random.randint(1, len(valid_characters)-1)
-#         g_username += valid_characters[character_index]
-
-#     # print(generated_username)
-#     return g_username
-
 
 def generate_username_INvalid_taken():
-    index = random.randint(1, usernameCount)-1
-    g_username = arrayOfUsernames[index]
-    return g_username
 
+    # looking thru json file to find already registered usernames
+    f = open(filename)
+    data = json.load(f)
 
-# looking thru json file to find already registered usernames
-f = open(filename)
-data = json.load(f)
+    try:
+        arrayOfUsernames = []
+        usernamesTaken = True
+        for i in data['accounts']:
+            username = i['username']
+            arrayOfUsernames.append(username)
+        usernameCount = len(arrayOfUsernames)
 
-arrayOfUsernames = []
-for i in data['accounts']:
-    username = i['username']
-    arrayOfUsernames.append(username)
+    except:
+        usernamesTaken = False
 
-usernameCount = len(arrayOfUsernames)
+    if len(arrayOfUsernames) == 0:
+        usernamesTaken = False
 
-f.close()
+    f.close()
+
+    if usernamesTaken:
+        index = random.randint(1, usernameCount)-1
+        g_username = arrayOfUsernames[index]
+        return g_username
+    else:
+        return generate_username_INvalid_chars()
+
 
 # test below ############################################################
 # print(generate_username_INvalid_chars())
@@ -87,3 +77,5 @@ f.close()
 
 
 # generate_username_INvalid_taken()
+
+# print(generate_username_INvalid_taken())
