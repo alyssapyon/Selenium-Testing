@@ -19,9 +19,31 @@ driver = webdriver.Chrome(PATH)
 
 class TestSum(unittest.TestCase):
     def setUp(self):
-        # PATH = "C:\\chromedriver.exe"
-        # driver = webdriver.Chrome(PATH)
         driver.get("http://127.0.0.1:8000/logout/")
+
+    # public pages
+
+    def test_logout(self):
+        driver.get("http://127.0.0.1:8000/logout/")
+        self.assertEqual(driver.title, "SingHealth WebApp - Login")
+
+    def test_register(self):
+        driver.get("http://127.0.0.1:8000/register/")
+        self.assertEqual(driver.title, "SingHealth WebApp - Register")
+
+    def test_registeradmin(self):
+        driver.get("http://127.0.0.1:8000/register/admin")
+        self.assertEqual(driver.title, "SingHealth WebApp - Register Admin")
+
+    def test_registertenant(self):
+        driver.get("http://127.0.0.1:8000/register/tenant")
+        self.assertEqual(driver.title, "SingHealth WebApp - Register Tenant")
+
+    def test_login(self):
+        driver.get("http://127.0.0.1:8000/login/")
+        self.assertEqual(driver.title, "SingHealth WebApp - Login")
+
+    # login required
 
     def test_home(self):
         driver.get("http://127.0.0.1:8000/")

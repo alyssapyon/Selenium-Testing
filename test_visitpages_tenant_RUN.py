@@ -19,23 +19,45 @@ driver = webdriver.Chrome(PATH)
 
 class TestSum(unittest.TestCase):
     def setUp(self):
-        # PATH = "C:\\chromedriver.exe"
-        # driver = webdriver.Chrome(PATH)
         driver.get("http://127.0.0.1:8000/logout/")
         # username
         input_username = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.NAME, "username"))
         )
         input_username.clear()
-        input_username.send_keys(admin_username)
+        input_username.send_keys(tenant_username)
 
         # password
         input_password = driver.find_element_by_name("password")
         input_password.clear()
-        input_password.send_keys(admin_password)
+        input_password.send_keys(tenant_password)
 
         # press enter
         input_password.send_keys(Keys.RETURN)
+
+    # public pages
+
+    def test_logout(self):
+        driver.get("http://127.0.0.1:8000/logout/")
+        self.assertEqual(driver.title, "SingHealth WebApp - Login")
+
+    def test_register(self):
+        driver.get("http://127.0.0.1:8000/register/")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_registeradmin(self):
+        driver.get("http://127.0.0.1:8000/register/admin")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_registertenant(self):
+        driver.get("http://127.0.0.1:8000/register/tenant")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_login(self):
+        driver.get("http://127.0.0.1:8000/login/")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    # login required
 
     def test_home(self):
         driver.get("http://127.0.0.1:8000/")
@@ -59,7 +81,7 @@ class TestSum(unittest.TestCase):
 
     def test_send_email(self):
         driver.get("http://127.0.0.1:8000/send_email/")
-        self.assertEqual(driver.title, "SingHealth WebApp - Email")
+        self.assertEqual(driver.title, "Restricted Access")
 
     def test_createNonFBReport_form(self):
         driver.get("http://127.0.0.1:8000/createNonFBReport_form/")

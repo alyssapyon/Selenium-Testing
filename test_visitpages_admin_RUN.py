@@ -37,6 +37,30 @@ class TestSum(unittest.TestCase):
         # press enter
         input_password.send_keys(Keys.RETURN)
 
+    # public pages
+
+    def test_logout(self):
+        driver.get("http://127.0.0.1:8000/logout/")
+        self.assertEqual(driver.title, "SingHealth WebApp - Login")
+
+    def test_register(self):
+        driver.get("http://127.0.0.1:8000/register/")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_registeradmin(self):
+        driver.get("http://127.0.0.1:8000/register/admin")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_registertenant(self):
+        driver.get("http://127.0.0.1:8000/register/tenant")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    def test_login(self):
+        driver.get("http://127.0.0.1:8000/login/")
+        self.assertEqual(driver.title, "SingHealth WebApp")
+
+    # login required
+
     def test_home(self):
         driver.get("http://127.0.0.1:8000/")
         self.assertEqual(driver.title, "SingHealth WebApp")
