@@ -6,12 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 
-import json
-
-from gen_username_valid import generate_username_valid
-from gen_email_valid import generate_email_valid
-from gen_password_valid import generate_password_valid
-from gen_username_INvalid import *
+import random
 
 from CONSTANTS import *
 
