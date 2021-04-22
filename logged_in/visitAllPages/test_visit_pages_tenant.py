@@ -40,7 +40,7 @@ class TestSum(unittest.TestCase):
 
     def test_stores(self):
         driver.get("http://127.0.0.1:8000/stores/")
-        self.assertEqual(driver.title, "Restricted Access")
+        self.assertEqual(driver.title, "SingHealth WebApp - Stores")
 
     def test_reports(self):
         driver.get("http://127.0.0.1:8000/reports/")
@@ -65,14 +65,20 @@ class TestSum(unittest.TestCase):
     def test_createNonFBReport_form(self):
         driver.get("http://127.0.0.1:8000/createNonFBReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("non-F&B" in bodyText)
 
     def test_createFBReport_form(self):
         driver.get("http://127.0.0.1:8000/createFBReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("Report - F&B" in bodyText)
 
     def test_createCovidReport_form(self):
         driver.get("http://127.0.0.1:8000/createCovidReport_form/")
         self.assertEqual(driver.title, "SingHealth WebApp - Create Report")
+        bodyText = driver.find_element_by_tag_name('body').text
+        self.assertTrue("Covid" in bodyText)
 
     def test_rectify_form(self):
         driver.get("http://127.0.0.1:8000/rectify_form/")

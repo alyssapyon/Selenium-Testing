@@ -13,13 +13,14 @@ from gen_email_valid import generate_email_valid
 from gen_password_valid import generate_password_valid
 from gen_username_INvalid import *
 
+import CONSTANTS
+
 # set wait time between testcases
 waitTime = 1
 
 # file to store registered accounts
-filename = "registeredAccounts.json"
-# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
-
+# filename = "registeredAccounts.json"
+filename = CONSTANTS.registeredAccounts_filepath
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
 PATH = "C:\\chromedriver.exe"

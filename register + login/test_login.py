@@ -12,9 +12,9 @@ import json
 # set wait time between testcases
 waitTime = 1
 
-# file to retrieve registered accounts
-filename = "registeredAccounts.json"
-# filename = "C:\\Users\\admin\\projects\\seleniumtut\\Selenium Testing\\registeredAccounts.json"
+# file to store registered accounts
+# filename = "registeredAccounts.json"
+filename = "register + login\\registeredAccounts.json"
 
 
 # NEED TO EDIT THIS BASED ON WHERE YOUR CHROMEDRIVER IS
@@ -75,7 +75,7 @@ def run_test_valid_login(times):
     file.close()
 
 
-# run_test_valid_login(10)
+run_test_valid_login(10)
 
 
 # # Opening JSON file

@@ -2,6 +2,8 @@ from test_register import *
 
 from test_login import run_test_valid_login
 
+import CONSTANTS
+
 # register admin accounts
 run_test_valid_register_admin(5)
 
